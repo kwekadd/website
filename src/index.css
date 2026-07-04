@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-brand-blue: #0A192F;
+  --color-brand-blue-deep: #020c1b;
+  --color-brand-blue-light: #172A45;
+  --color-brand-blue-card: #0B1E36;
+  --color-brand-amber: #FFB300;
+  --color-brand-yellow: #FACC15;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes scan {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(200%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+
+.animate-scan-line {
+  animation: scan 3s linear infinite;
+}
+
+.animate-dash-circuit {
+  animation: dash 8s linear infinite;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #020c1b;
+}
+::-webkit-scrollbar-thumb {
+  background: #172A45;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FFB300;
+}
