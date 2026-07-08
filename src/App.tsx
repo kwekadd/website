@@ -42,9 +42,95 @@ interface ServiceItem {
   specs: string;
 }
 
+interface GalleryProjectItem {
+  id: number;
+  src: string;
+  title: string;
+  category: string;
+  location: string;
+  desc: string;
+}
+
+const galleryProjects: GalleryProjectItem[] = [
+  {
+    id: 1,
+    src: "/image-1.jpg",
+    title: "Conduit House Wiring",
+    category: "wiring",
+    location: "East Legon, Accra",
+    desc: "Rigorous conduit routing and electrical pipe layout for a luxury residential build."
+  },
+  {
+    id: 2,
+    src: "/image-2.jpg",
+    title: "4K HD Security Camera",
+    category: "cctv",
+    location: "Airport Residential Area",
+    desc: "Weatherproof dome CCTV camera mount with clean wiring and stream integration."
+  },
+  {
+    id: 3,
+    src: "/image-3.jpg",
+    title: "Main Distribution Board",
+    category: "wiring",
+    location: "Dzorwulu, Accra",
+    desc: "Symmetrically wired distribution board with smart surge protection breakers."
+  },
+  {
+    id: 4,
+    src: "/image-4.jpg",
+    title: "AC Power Connection",
+    category: "ac",
+    location: "Cantonments, Accra",
+    desc: "Dedicated power isolation breaker installation for a split inverter air conditioning unit."
+  },
+  {
+    id: 5,
+    src: "/image-5.jpg",
+    title: "System Earth Electrode",
+    category: "wiring",
+    location: "Spintex, Accra",
+    desc: "Standard grounding earthing rods installation guaranteeing lightning safety."
+  },
+  {
+    id: 6,
+    src: "/image-6.jpg",
+    title: "Fault Diagnosis & Tracing",
+    category: "troubleshoot",
+    location: "Osu, Accra",
+    desc: "Industrial troubleshooting session to resolve transient phase loading trips."
+  },
+  {
+    id: 7,
+    src: "/image-7.jpg",
+    title: "Perimeter Bullet Cameras",
+    category: "cctv",
+    location: "Labone, Accra",
+    desc: "Outdoor long-range night vision camera array securing commercial compound walls."
+  },
+  {
+    id: 8,
+    src: "/image-8.jpg",
+    title: "Structured Cable Looming",
+    category: "wiring",
+    location: "Roman Ridge, Accra",
+    desc: "Neatly organized cable dressing for a multi-zone home automation rack."
+  },
+  {
+    id: 9,
+    src: "/image-9.jpg",
+    title: "Safety Audit Signoff",
+    category: "wiring",
+    location: "Legon, Accra",
+    desc: "Energy Commission compliance insulation tests performed by certified engineer."
+  }
+];
+
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"electrical" | "cctv">("electrical");
+  const [galleryFilter, setGalleryFilter] = useState<string>("all");
+  const [selectedGalleryItem, setSelectedGalleryItem] = useState<GalleryProjectItem | null>(null);
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState("");
   const [estimateProject, setEstimateProject] = useState({
@@ -217,7 +303,7 @@ export default function App() {
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => scrollToSection("home")} id="logo-header">
             <div className="relative flex items-center justify-center w-12 h-12 rounded-lg overflow-hidden border border-brand-amber/30 bg-brand-blue-deep hover:border-brand-amber transition-all">
               <img 
-                src="/src/assets/images/jamends_logo_1783205393113.jpg" 
+                src="/logo.jpeg" 
                 className="w-full h-full object-cover" 
                 alt="Jamends Logo" 
                 referrerPolicy="no-referrer"
@@ -406,11 +492,21 @@ export default function App() {
                   <motion.div 
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.25 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
                     className="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/30 px-3.5 py-1.5 rounded-full text-blue-300 font-medium text-xs shadow-inner"
                   >
                     <ShieldCheck className="w-3.5 h-3.5 text-brand-amber" />
                     <span>Tested and certified by the Energy Commission</span>
+                  </motion.div>
+
+                  <motion.div 
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="inline-flex items-center space-x-2.5 bg-red-500/10 border border-red-500/40 px-3.5 py-1.5 rounded-full text-red-400 font-extrabold text-xs tracking-wider uppercase shadow-inner animate-pulse"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+                    <span>24/7 Emergency Service Available</span>
                   </motion.div>
                 </div>
 
@@ -755,7 +851,7 @@ export default function App() {
                 <div className="mt-8 flex items-center space-x-4">
                   <div className="w-10 h-10 rounded-full overflow-hidden border border-brand-amber/30 bg-brand-blue-deep flex items-center justify-center">
                     <img 
-                      src="/src/assets/images/jamends_logo_1783205393113.jpg" 
+                      src="/logo.jpeg" 
                       className="w-full h-full object-cover" 
                       alt="Jamends Logo" 
                       referrerPolicy="no-referrer"
@@ -897,6 +993,34 @@ export default function App() {
               </p>
             </div>
 
+            {/* 24/7 Emergency Callout Banner */}
+            <div className="mb-12 bg-linear-to-r from-red-950/40 via-brand-blue-card to-red-950/40 border border-red-500/40 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_0_20px_rgba(239,68,68,0.1)]">
+              <div className="flex items-center space-x-4 text-left">
+                <div className="w-14 h-14 rounded-xl bg-red-500/10 border border-red-500/35 flex items-center justify-center text-red-500 animate-pulse flex-shrink-0">
+                  <Zap className="w-7 h-7" />
+                </div>
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <span className="inline-block w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-widest text-red-400">URGENT DISPATCH SERVICE</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mt-1">24/7 Emergency Service Available</h3>
+                  <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
+                    Dealing with a dangerous short-circuit, sudden power failure, or urgent security camera breakdown? Our response crew is on-call 24 hours a day to restore safety and power.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <a 
+                  href="tel:0599490591" 
+                  className="inline-flex items-center justify-center space-x-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold px-6 py-3.5 rounded-xl text-sm tracking-wide shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                >
+                  <Phone className="w-4 h-4 animate-bounce" />
+                  <span>Call Emergency: 0599490591</span>
+                </a>
+              </div>
+            </div>
+
             {/* Grid of Service Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service) => {
@@ -1016,6 +1140,112 @@ export default function App() {
           </div>
         </section>
 
+        {/* PROJECT GALLERY SECTION */}
+        <section id="gallery" className="py-20 relative border-b border-brand-blue-light/40">
+          <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:32px_32px] opacity-10" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            {/* Section Header */}
+            <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
+              <span className="text-xs text-brand-amber uppercase font-mono font-bold tracking-[0.2em] bg-brand-amber/10 border border-brand-amber/20 px-3 py-1 rounded-full">
+                Professional Portfolio
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-display tracking-tight text-white">
+                Our Installation Showcase
+              </h2>
+              <p className="text-slate-400 text-sm sm:text-base">
+                Explore real field photographs from our actual certified electrical wiring, neat power routing, and high-definition smart CCTV camera installations across Accra, Ghana.
+              </p>
+            </div>
+
+            {/* Category Filters */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+              {[
+                { filter: "all", label: "Show All" },
+                { filter: "wiring", label: "Electrical Wiring" },
+                { filter: "cctv", label: "CCTV Cameras" },
+                { filter: "ac", label: "A/C Solutions" },
+                { filter: "troubleshoot", label: "Troubleshooting" }
+              ].map((btn) => (
+                <button
+                  key={btn.filter}
+                  onClick={() => setGalleryFilter(btn.filter)}
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all border ${
+                    galleryFilter === btn.filter
+                      ? "bg-brand-amber text-brand-blue-deep border-brand-amber shadow-lg shadow-brand-amber/15"
+                      : "bg-brand-blue-card hover:bg-brand-blue-light border-slate-800 text-slate-400 hover:text-white"
+                  }`}
+                  id={`btn-gallery-filter-${btn.filter}`}
+                >
+                  {btn.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Project Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {galleryProjects
+                .filter((p) => galleryFilter === "all" || p.category === galleryFilter)
+                .map((project) => (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                    key={project.id}
+                    className="group bg-brand-blue-card rounded-2xl border border-brand-blue-light/60 overflow-hidden shadow-lg hover:border-brand-amber/50 hover:shadow-2xl transition-all cursor-pointer flex flex-col justify-between"
+                    onClick={() => setSelectedGalleryItem(project)}
+                    id={`gallery-card-${project.id}`}
+                  >
+                    {/* Image Area */}
+                    <div className="relative aspect-4/3 overflow-hidden bg-brand-blue-deep">
+                      <img
+                        src={project.src}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                        referrerPolicy="no-referrer"
+                      />
+                      
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-blue-deep via-brand-blue-deep/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-brand-yellow bg-brand-blue-deep/80 border border-brand-amber/30 px-2 py-1 rounded-md">
+                          Click to View Details
+                        </span>
+                      </div>
+                      
+                      {/* Location Tag */}
+                      <span className="absolute top-3 right-3 bg-brand-blue-deep/85 backdrop-blur-sm border border-slate-800/80 text-[10px] font-mono text-slate-300 px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-md">
+                        <MapPin className="w-3 h-3 text-brand-amber" />
+                        {project.location}
+                      </span>
+                    </div>
+
+                    {/* Content Area */}
+                    <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
+                      <div>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-brand-amber">
+                          {project.category === "wiring" ? "Electrical Wiring" : project.category === "cctv" ? "CCTV Surveillance" : project.category === "ac" ? "A/C Solutions" : "Technical Support"}
+                        </span>
+                        <h3 className="text-lg font-bold text-white group-hover:text-brand-amber transition-colors line-clamp-1">
+                          {project.title}
+                        </h3>
+                        <p className="text-xs text-slate-400 mt-1 line-clamp-2">
+                          {project.desc}
+                        </p>
+                      </div>
+                      <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-xs font-semibold text-slate-300 group-hover:text-brand-yellow transition-colors">
+                        <span>Inspect Field Work</span>
+                        <Eye className="w-4 h-4 text-brand-amber group-hover:scale-110 transition-transform" />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+            </div>
+
+          </div>
+        </section>
+
         {/* 4. ESTIMATOR / INTERACTIVE QUESTIONNAIRE */}
         <section id="estimator" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-brand-blue-card border border-brand-blue-light rounded-3xl p-8 lg:p-12 relative overflow-hidden shadow-2xl">
@@ -1059,7 +1289,7 @@ export default function App() {
                   <label className="text-xs font-bold uppercase tracking-wider text-slate-300 font-mono block mb-3">
                     1. Select Service Category:
                   </label>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {[
                       { key: "electrical", label: "Electrical" },
                       { key: "cctv", label: "CCTV Camera" },
@@ -1086,7 +1316,7 @@ export default function App() {
                   <label className="text-xs font-bold uppercase tracking-wider text-slate-300 font-mono block mb-3">
                     2. Approximate Location Size:
                   </label>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {[
                       { key: "small", label: "Small (Apartment)" },
                       { key: "medium", label: "Medium (Duplex/Office)" },
@@ -1217,8 +1447,8 @@ export default function App() {
                   
                   <div className="grid grid-cols-2 gap-4 text-xs">
                     <div>
-                      <span className="text-slate-400 block font-semibold">Monday - Saturday:</span>
-                      <span className="text-white font-bold text-sm block mt-1">8:00 AM - 6:00 PM</span>
+                      <span className="text-slate-400 block font-semibold">Operational Hours:</span>
+                      <span className="text-white font-bold text-sm block mt-1">Available Every Day (24 Hours)</span>
                     </div>
                     <div>
                       <span className="text-slate-400 block font-semibold">Accra Dispatch Range:</span>
@@ -1322,7 +1552,7 @@ export default function App() {
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 rounded overflow-hidden border border-brand-amber/30 bg-brand-blue-deep flex items-center justify-center">
                   <img 
-                    src="/src/assets/images/jamends_logo_1783205393113.jpg" 
+                    src="/logo.jpeg" 
                     className="w-full h-full object-cover" 
                     alt="Jamends Logo" 
                     referrerPolicy="no-referrer"
@@ -1476,6 +1706,93 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* GALLERY LIGHTBOX POPUP MODAL */}
+      <AnimatePresence>
+        {selectedGalleryItem && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-blue-deep/90 backdrop-blur-md"
+            onClick={() => setSelectedGalleryItem(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              className="bg-brand-blue-card border border-brand-blue-light rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedGalleryItem(null)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-brand-blue-deep/80 border border-slate-800 text-slate-300 hover:text-white hover:border-brand-amber flex items-center justify-center transition-all cursor-pointer"
+                id="btn-lightbox-close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Image Frame */}
+              <div className="relative aspect-16/10 bg-black overflow-hidden border-b border-brand-blue-light/50">
+                <img
+                  src={selectedGalleryItem.src}
+                  alt={selectedGalleryItem.title}
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                
+                {/* Location Badge */}
+                <div className="absolute bottom-4 left-4 bg-brand-blue-deep/90 backdrop-blur-sm border border-brand-blue-light/80 px-3.5 py-1.5 rounded-xl flex items-center gap-2 shadow-lg">
+                  <MapPin className="w-4 h-4 text-brand-amber" />
+                  <span className="text-xs font-mono font-bold text-white">{selectedGalleryItem.location}</span>
+                </div>
+              </div>
+
+              {/* Information Panel */}
+              <div className="p-6 sm:p-8 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <span className="text-xs font-mono font-bold text-brand-amber uppercase tracking-widest bg-brand-amber/10 border border-brand-amber/20 px-3 py-1 rounded-full">
+                      {selectedGalleryItem.category === "wiring" ? "Certified Wiring" : selectedGalleryItem.category === "cctv" ? "Smart Camera Array" : selectedGalleryItem.category === "ac" ? "Climate Integration" : "Expert Troubleshooting"}
+                    </span>
+                    <h3 className="text-2xl font-black font-display text-white mt-2 leading-none">
+                      {selectedGalleryItem.title}
+                    </h3>
+                  </div>
+                  
+                  <button
+                    onClick={() => {
+                      setSelectedGalleryItem(null);
+                      scrollToSection("booking");
+                    }}
+                    className="px-5 py-3 bg-brand-amber text-brand-blue-deep font-bold rounded-xl text-xs tracking-wider uppercase hover:bg-brand-yellow transition-all"
+                    id="btn-lightbox-inquire"
+                  >
+                    Inquire About This Setup
+                  </button>
+                </div>
+
+                <p className="text-sm text-slate-300 leading-relaxed">
+                  {selectedGalleryItem.desc}
+                </p>
+
+                <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-4">
+                  <div className="flex items-center space-x-2">
+                    <Check className="w-4 h-4 text-brand-amber" />
+                    <span>Energy Commission Safety Certified</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Check className="w-4 h-4 text-brand-amber" />
+                    <span>Complies with Ghana wiring regulations</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
