@@ -58,71 +58,71 @@ const galleryProjects: GalleryProjectItem[] = [
     title: "Conduit House Wiring",
     category: "wiring",
     location: "East Legon, Accra",
-    desc: "Rigorous conduit routing and electrical pipe layout for a luxury residential build."
+    desc: "Rigorous conduit routing and ceiling box wiring for a luxury residential build."
   },
   {
     id: 2,
     src: "/image-2.jpg",
-    title: "4K HD Security Camera",
+    title: "Dome Security Camera Setup",
     category: "cctv",
     location: "Airport Residential Area",
-    desc: "Weatherproof dome CCTV camera mount with clean wiring and stream integration."
+    desc: "High-definition indoor smart CCTV camera installation with secure bracket mounting."
   },
   {
     id: 3,
     src: "/image-3.jpg",
-    title: "Main Distribution Board",
+    title: "Switch & Socket Wiring",
     category: "wiring",
     location: "Dzorwulu, Accra",
-    desc: "Symmetrically wired distribution board with smart surge protection breakers."
+    desc: "Precision wiring of switchboards and outlets with surge-protection breakers."
   },
   {
     id: 4,
     src: "/image-4.jpg",
-    title: "AC Power Connection",
+    title: "AC System Installation",
     category: "ac",
     location: "Cantonments, Accra",
-    desc: "Dedicated power isolation breaker installation for a split inverter air conditioning unit."
+    desc: "Dedicated power isolation and secure wall bracket mounting for split air conditioners."
   },
   {
     id: 5,
     src: "/image-5.jpg",
-    title: "System Earth Electrode",
+    title: "Conduit Wire Dressing",
     category: "wiring",
     location: "Spintex, Accra",
-    desc: "Standard grounding earthing rods installation guaranteeing lightning safety."
+    desc: "Neat and compliant multi-core wire pulling through wall-mounted conduit pipes."
   },
   {
     id: 6,
     src: "/image-6.jpg",
-    title: "Fault Diagnosis & Tracing",
-    category: "troubleshoot",
-    location: "Osu, Accra",
-    desc: "Industrial troubleshooting session to resolve transient phase loading trips."
+    title: "Outdoor Bullet Camera Setup",
+    category: "cctv",
+    location: "Labone, Accra",
+    desc: "Weatherproof high-definition outdoor security camera installation for compound walls."
   },
   {
     id: 7,
     src: "/image-7.jpg",
-    title: "Perimeter Bullet Cameras",
-    category: "cctv",
-    location: "Labone, Accra",
-    desc: "Outdoor long-range night vision camera array securing commercial compound walls."
+    title: "On-Site Certified Work",
+    category: "wiring",
+    location: "Osu, Accra",
+    desc: "Insulated testing, drilling, and safety checks on active architectural framing."
   },
   {
     id: 8,
     src: "/image-8.jpg",
-    title: "Structured Cable Looming",
+    title: "Luxury Chandelier Mounting",
     category: "wiring",
     location: "Roman Ridge, Accra",
-    desc: "Neatly organized cable dressing for a multi-zone home automation rack."
+    desc: "Heavy-duty ceiling mount and intricate balancing of luxury crystal lighting."
   },
   {
     id: 9,
     src: "/image-9.jpg",
-    title: "Safety Audit Signoff",
+    title: "Chandelier Safety Connection",
     category: "wiring",
     location: "Legon, Accra",
-    desc: "Energy Commission compliance insulation tests performed by certified engineer."
+    desc: "Careful electrical connections and load testing for large decorative fixtures."
   }
 ];
 
@@ -176,6 +176,17 @@ export default function App() {
       s.onerror = v;
       d.body.appendChild(s);
     }
+  }, []);
+
+  // Handle keydown for Escape key to close the gallery lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedGalleryItem(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Project Estimator Calculation
@@ -1714,82 +1725,94 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-blue-deep/90 backdrop-blur-md"
+            className="fixed inset-0 z-50 overflow-y-auto bg-brand-blue-deep/90 backdrop-blur-md"
             onClick={() => setSelectedGalleryItem(null)}
           >
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="bg-brand-blue-card border border-brand-blue-light rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedGalleryItem(null)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-brand-blue-deep/80 border border-slate-800 text-slate-300 hover:text-white hover:border-brand-amber flex items-center justify-center transition-all cursor-pointer"
-                id="btn-lightbox-close"
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <motion.div
+                initial={{ scale: 0.95, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 350 }}
+                className="bg-brand-blue-card border border-brand-blue-light rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative text-left my-8"
+                onClick={(e) => e.stopPropagation()}
               >
-                <X className="w-5 h-5" />
-              </button>
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedGalleryItem(null)}
+                  className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-brand-blue-deep/80 border border-slate-800 text-slate-300 hover:text-white hover:border-brand-amber flex items-center justify-center transition-all cursor-pointer"
+                  id="btn-lightbox-close"
+                  title="Close presentation"
+                >
+                  <X className="w-5 h-5" />
+                </button>
 
-              {/* Image Frame */}
-              <div className="relative aspect-16/10 bg-black overflow-hidden border-b border-brand-blue-light/50">
-                <img
-                  src={selectedGalleryItem.src}
-                  alt={selectedGalleryItem.title}
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-                
-                {/* Location Badge */}
-                <div className="absolute bottom-4 left-4 bg-brand-blue-deep/90 backdrop-blur-sm border border-brand-blue-light/80 px-3.5 py-1.5 rounded-xl flex items-center gap-2 shadow-lg">
-                  <MapPin className="w-4 h-4 text-brand-amber" />
-                  <span className="text-xs font-mono font-bold text-white">{selectedGalleryItem.location}</span>
-                </div>
-              </div>
-
-              {/* Information Panel */}
-              <div className="p-6 sm:p-8 space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <span className="text-xs font-mono font-bold text-brand-amber uppercase tracking-widest bg-brand-amber/10 border border-brand-amber/20 px-3 py-1 rounded-full">
-                      {selectedGalleryItem.category === "wiring" ? "Certified Wiring" : selectedGalleryItem.category === "cctv" ? "Smart Camera Array" : selectedGalleryItem.category === "ac" ? "Climate Integration" : "Expert Troubleshooting"}
-                    </span>
-                    <h3 className="text-2xl font-black font-display text-white mt-2 leading-none">
-                      {selectedGalleryItem.title}
-                    </h3>
-                  </div>
+                {/* Image Frame */}
+                <div className="relative aspect-16/10 bg-black overflow-hidden border-b border-brand-blue-light/50">
+                  <img
+                    src={selectedGalleryItem.src}
+                    alt={selectedGalleryItem.title}
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
                   
-                  <button
-                    onClick={() => {
-                      setSelectedGalleryItem(null);
-                      scrollToSection("booking");
-                    }}
-                    className="px-5 py-3 bg-brand-amber text-brand-blue-deep font-bold rounded-xl text-xs tracking-wider uppercase hover:bg-brand-yellow transition-all"
-                    id="btn-lightbox-inquire"
-                  >
-                    Inquire About This Setup
-                  </button>
-                </div>
-
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  {selectedGalleryItem.desc}
-                </p>
-
-                <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-4">
-                  <div className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-brand-amber" />
-                    <span>Energy Commission Safety Certified</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-brand-amber" />
-                    <span>Complies with Ghana wiring regulations</span>
+                  {/* Location Badge */}
+                  <div className="absolute bottom-4 left-4 bg-brand-blue-deep/90 backdrop-blur-sm border border-brand-blue-light/80 px-3.5 py-1.5 rounded-xl flex items-center gap-2 shadow-lg">
+                    <MapPin className="w-4 h-4 text-brand-amber" />
+                    <span className="text-xs font-mono font-bold text-white">{selectedGalleryItem.location}</span>
                   </div>
                 </div>
-              </div>
-            </motion.div>
+
+                {/* Information Panel */}
+                <div className="p-6 sm:p-8 space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                      <span className="text-xs font-mono font-bold text-brand-amber uppercase tracking-widest bg-brand-amber/10 border border-brand-amber/20 px-3 py-1 rounded-full">
+                        {selectedGalleryItem.category === "wiring" ? "Certified Wiring" : selectedGalleryItem.category === "cctv" ? "Smart Camera Array" : selectedGalleryItem.category === "ac" ? "Climate Integration" : "Expert Troubleshooting"}
+                      </span>
+                      <h3 className="text-2xl font-black font-display text-white mt-2 leading-none">
+                        {selectedGalleryItem.title}
+                      </h3>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => setSelectedGalleryItem(null)}
+                        className="px-5 py-3 border border-slate-700 hover:border-slate-500 bg-brand-blue-light/20 hover:bg-brand-blue-light/40 text-slate-300 hover:text-white font-bold rounded-xl text-xs tracking-wider uppercase transition-all cursor-pointer"
+                        id="btn-lightbox-bottom-close"
+                      >
+                        Close
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSelectedGalleryItem(null);
+                          scrollToSection("booking");
+                        }}
+                        className="px-5 py-3 bg-brand-amber text-brand-blue-deep font-bold rounded-xl text-xs tracking-wider uppercase hover:bg-brand-yellow transition-all"
+                        id="btn-lightbox-inquire"
+                      >
+                        Inquire Setup
+                      </button>
+                    </div>
+                  </div>
+
+                  <p className="text-sm text-slate-300 leading-relaxed">
+                    {selectedGalleryItem.desc}
+                  </p>
+
+                  <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-4">
+                    <div className="flex items-center space-x-2">
+                      <Check className="w-4 h-4 text-brand-amber" />
+                      <span>Energy Commission Safety Certified</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Check className="w-4 h-4 text-brand-amber" />
+                      <span>Complies with Ghana wiring regulations</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
