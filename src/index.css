@@ -5,10 +5,10 @@
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   
-  --color-brand-blue: #40577a;
-  --color-brand-blue-deep: #354a6b;
-  --color-brand-blue-light: #5d7ca8;
-  --color-brand-blue-card: #4a638a;
+  --color-brand-blue: #1e293b;
+  --color-brand-blue-deep: #020617;
+  --color-brand-blue-light: #1e2d4a;
+  --color-brand-blue-card: #0b1329;
   --color-brand-amber: #FFB300;
   --color-brand-yellow: #FACC15;
 }
@@ -42,10 +42,10 @@ html {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #354a6b;
+  background: #020617;
 }
 ::-webkit-scrollbar-thumb {
-  background: #5d7ca8;
+  background: var(--color-brand-blue-light);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {

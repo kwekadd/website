@@ -150,32 +150,24 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // Tally Embed Script Integration
+  // Dynamically load Fillout embed script after mount to ensure the DOM element is ready
   useEffect(() => {
-    const d = document;
-    const w = "https://tally.so/widgets/embed.js";
-    const v = () => {
-      // @ts-ignore
-      if (typeof Tally !== "undefined") {
-        // @ts-ignore
-        Tally.loadEmbeds();
-      } else {
-        d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((e: any) => {
-          e.src = e.dataset.tallySrc;
-        });
+    // Remove any existing Fillout script to force re-execution/re-initialization
+    const existingScript = document.querySelector('script[src^="https://server.fillout.com/embed/v2-zite/"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://server.fillout.com/embed/v2-zite/";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.body.contains(script)) {
+        script.remove();
       }
     };
-    
-    // @ts-ignore
-    if (typeof Tally !== "undefined") {
-      v();
-    } else if (d.querySelector(`script[src="${w}"]`) === null) {
-      const s = d.createElement("script");
-      s.src = w;
-      s.onload = v;
-      s.onerror = v;
-      d.body.appendChild(s);
-    }
   }, []);
 
   // Handle keydown for Escape key to close the gallery lightbox
@@ -1360,7 +1352,7 @@ export default function App() {
                   </p>
                 </div>
 
-                {/* CTA Action link to Tally Booking */}
+                {/* CTA Action link to Booking Section */}
                 <div className="pt-2">
                   <button
                     onClick={() => scrollToSection("booking")}
@@ -1505,9 +1497,9 @@ export default function App() {
 
               </div>
 
-              {/* Right Column: Tally Form Iframe Card Wrapper */}
+              {/* Right Column: Fillout Form Card Wrapper */}
               <div className="lg:col-span-7">
-                <div className="bg-brand-blue-card border-2 border-brand-amber/35 rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(2,12,27,0.7)]" id="tally-form-card">
+                <div className="bg-brand-blue-card border-2 border-brand-amber/35 rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(2,12,27,0.7)]" id="fillout-form-card">
                   
                   {/* Form Header */}
                   <div className="bg-gradient-to-r from-brand-blue-light to-brand-blue-card px-6 py-5 border-b border-brand-blue-light/80 flex items-center justify-between">
@@ -1522,19 +1514,14 @@ export default function App() {
                   </div>
 
                   {/* Form Container */}
-                  <div className="p-1 sm:p-2 bg-brand-blue-card">
-                    {/* Tally Iframe Element as requested */}
-                    <iframe 
-                      data-tally-src="https://tally.so/embed/RGlDZP?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-                      src="https://tally.so/embed/RGlDZP?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-                      loading="lazy" 
-                      width="100%" 
-                      height="747" 
-                      frameBorder="0" 
-                      marginHeight={0} 
-                      marginWidth={0} 
-                      title="Appointment Request"
-                      className="w-full bg-transparent rounded-2xl"
+                  <div className="p-0 sm:p-1 bg-brand-blue-card overflow-hidden">
+                    {/* Fillout Embed Element */}
+                    <div 
+                      style={{ width: "100%", height: "850px", maxWidth: "100%" }} 
+                      className="w-full max-w-full overflow-hidden rounded-2xl"
+                      data-zite-id="4s9vxddyen" 
+                      data-zite-embed-type="standard" 
+                      data-zite-inherit-parameters=""
                     />
                   </div>
 
@@ -1626,7 +1613,7 @@ export default function App() {
                 
                 {/* Facebook */}
                 <a 
-                  href="https://facebook.com" 
+                  href="https://www.facebook.com/share/1JMRFTNNZ1/?mibextid=wwXIfr" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center space-x-2 bg-brand-blue-light/40 hover:bg-brand-blue-light border border-slate-800 hover:border-brand-amber/40 px-3 py-1.5 rounded-lg text-xs text-slate-300 hover:text-brand-amber transition-all"
@@ -1641,7 +1628,7 @@ export default function App() {
 
                 {/* Instagram */}
                 <a 
-                  href="https://instagram.com" 
+                  href="https://www.instagram.com/jamends_electricals?igsh=NTd3dmh2cXV1amxh&utm_source=ig_contact_invite" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center space-x-2 bg-brand-blue-light/40 hover:bg-brand-blue-light border border-slate-800 hover:border-brand-amber/40 px-3 py-1.5 rounded-lg text-xs text-slate-300 hover:text-brand-amber transition-all"
@@ -1656,39 +1643,24 @@ export default function App() {
                   <span className="font-semibold text-[11px]">Jamends Electricals</span>
                 </a>
 
-                {/* LinkedIn */}
-                <a 
-                  href="https://linkedin.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 bg-brand-blue-light/40 hover:bg-brand-blue-light border border-slate-800 hover:border-brand-amber/40 px-3 py-1.5 rounded-lg text-xs text-slate-300 hover:text-brand-amber transition-all"
-                  id="social-linkedin"
-                  title="LinkedIn - Jamends Electricals"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                  </svg>
-                  <span className="font-semibold text-[11px]">Jamends Electricals</span>
-                </a>
-
                 {/* YouTube */}
                 <a 
-                  href="https://youtube.com" 
+                  href="https://www.youtube.com/@JamendsTV" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center space-x-2 bg-brand-blue-light/40 hover:bg-brand-blue-light border border-slate-800 hover:border-brand-amber/40 px-3 py-1.5 rounded-lg text-xs text-slate-300 hover:text-brand-amber transition-all"
                   id="social-youtube"
-                  title="YouTube - Jamends Electricals"
+                  title="YouTube - Jamends TV"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                   </svg>
-                  <span className="font-semibold text-[11px]">Jamends Electricals</span>
+                  <span className="font-semibold text-[11px]">Jamends TV</span>
                 </a>
 
                 {/* TikTok */}
                 <a 
-                  href="https://tiktok.com" 
+                  href="https://www.tiktok.com/@jamendselectricals" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center space-x-2 bg-brand-blue-light/40 hover:bg-brand-blue-light border border-slate-800 hover:border-brand-amber/40 px-3 py-1.5 rounded-lg text-xs text-slate-300 hover:text-brand-amber transition-all"
