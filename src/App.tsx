@@ -848,7 +848,7 @@ export default function App() {
                 
                 <h4 className="text-xs text-brand-amber font-bold uppercase tracking-widest font-mono">Company Creed</h4>
                 <blockquote className="text-2xl sm:text-3xl font-extrabold font-display text-white mt-4 leading-tight">
-                  "Excellence isn't just about making connections; it's about building safe, neat systems that elevate your space."
+                  "Excellence isn't just about making connections; it's about building safe and neat systems that elevate your space."
                 </blockquote>
                 
                 <div className="mt-8 flex items-center space-x-4">
