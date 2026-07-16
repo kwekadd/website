@@ -308,7 +308,7 @@ export default function App() {
               <img 
                 src="/logo.jpeg" 
                 className="w-full h-full object-cover" 
-                alt="Jamends Logo" 
+                alt="Jamends Electricals - Certified Electrical & CCTV Experts Logo" 
                 referrerPolicy="no-referrer"
               />
             </div>
@@ -521,11 +521,10 @@ export default function App() {
                     transition={{ duration: 0.6, delay: 0.4 }}
                     className="text-4xl sm:text-5xl lg:text-6xl font-black font-display tracking-tight text-white leading-[1.1]"
                   >
-                    Your Trusted,{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-amber via-brand-yellow to-white drop-shadow-[0_2px_10px_rgba(255,179,0,0.25)]">
-                      Certified Electrical
+                      Jamends Electricals
                     </span>{" "}
-                    & CCTV Installation Experts
+                    – Certified Electrical & CCTV Experts
                   </motion.h1>
                   
                   <motion.p 
@@ -856,7 +855,7 @@ export default function App() {
                     <img 
                       src="/logo.jpeg" 
                       className="w-full h-full object-cover" 
-                      alt="Jamends Logo" 
+                      alt="Jamends Electricals - Energy Commission Certified Electrical Services Logo" 
                       referrerPolicy="no-referrer"
                     />
                   </div>
@@ -1552,7 +1551,7 @@ export default function App() {
                   <img 
                     src="/logo.jpeg" 
                     className="w-full h-full object-cover" 
-                    alt="Jamends Logo" 
+                    alt="Jamends Electricals - Certified Electrical & CCTV Installations Logo" 
                     referrerPolicy="no-referrer"
                   />
                 </div>
